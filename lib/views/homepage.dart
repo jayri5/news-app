@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app_api/helper/data.dart';
-import 'package:news_app_api/helper/widgets.dart';
-import 'package:news_app_api/models/categorie_model.dart';
-import 'package:news_app_api/views/categorie_news.dart';
+import 'package:helloworld/helper/data.dart';
+import 'package:helloworld/helper/widgets.dart';
+import 'package:helloworld/models/categorie_model.dart';
+import 'package:helloworld/views/categorie_news.dart';
 import '../helper/news.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,11 +12,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-  bool _loading;
+  bool _loading = true;
   var newslist;
 
-  List<CategorieModel> categories = List<CategorieModel>();
+  List<CategorieModel> categories = List<CategorieModel>.empty();
 
   void getNews() async {
     News news = News();
@@ -94,17 +93,18 @@ class _HomePageState extends State<HomePage> {
 class CategoryCard extends StatelessWidget {
   final String imageAssetUrl, categoryName;
 
-  CategoryCard({this.imageAssetUrl, this.categoryName});
+  CategoryCard({required this.imageAssetUrl, required this.categoryName});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) => CategoryNews(
-            newsCategory: categoryName.toLowerCase(),
-          )
-        ));
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CategoryNews(
+                      newsCategory: categoryName.toLowerCase(),
+                    )));
       },
       child: Container(
         margin: EdgeInsets.only(right: 14),
@@ -125,8 +125,7 @@ class CategoryCard extends StatelessWidget {
               width: 120,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
-                color: Colors.black26
-              ),
+                  color: Colors.black26),
               child: Text(
                 categoryName,
                 textAlign: TextAlign.center,
